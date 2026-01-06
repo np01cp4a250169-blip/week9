@@ -1,0 +1,87 @@
+package Week9;
+
+
+/**
+ * Write a description of class Employees here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class Employees
+
+{
+    protected int employeeId;
+    protected String name;
+    protected double basicSalary;
+
+    public Employees(int employeeId, String name, double basicSalary) {
+        this.employeeId = employeeId;
+        this.name = name;
+        this.basicSalary = basicSalary;
+    }
+
+    public double calculateBonus() {
+        return 0.1 * basicSalary;
+    }
+
+    public void displayEmployee() {
+        System.out.println("ID: " + employeeId + ", Name: " + name + ", Basic Salary: " + basicSalary);
+    }
+}
+
+package Week9;
+
+public class PermanentEmployee extends Employees
+{
+    private double hra;
+    private double da;
+
+    public PermanentEmployee(int employeeId, String name, double basicSalary, double hra, double da) {
+        super(employeeId, name, basicSalary);
+        this.hra = hra;
+        this.da = da;
+    }
+
+    public double calculateTotalSalary() {
+        return basicSalary + hra + da + calculateBonus();
+    }
+}
+
+package Week9;
+
+public class ContractEmployee extends Employees
+{
+     private int workingDays;
+
+    public ContractEmployee(int employeeId, String name, double basicSalary, int workingDays) {
+        super(employeeId, name, basicSalary);
+        this.workingDays = workingDays;
+    }
+
+    public double calculateTotalSalary() {
+        return basicSalary * workingDays;
+    }
+}
+
+package Week9;
+
+
+/**
+ * Write a description of class Payroll here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public class Payroll
+{
+    public static void main(String[] args) {
+        PermanentEmployee permEmp = new PermanentEmployee(1, "John Doe", 50000, 10000, 5000);
+        ContractEmployee contEmp = new ContractEmployee(2, "Jane Smith", 3000, 20);
+
+        permEmp.displayEmployee();
+        System.out.println("Total Salary: " + permEmp.calculateTotalSalary());
+
+        contEmp.displayEmployee();
+        System.out.println("Total Salary: " + contEmp.calculateTotalSalary());
+    }
+}
